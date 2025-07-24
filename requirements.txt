@@ -1,5 +1,6 @@
+catboost==1.2.8
+scikit-learn==1.6.1
+joblib==1.5.1
 streamlit
 pandas
-scikit-learn
-joblib
-catboost
+
