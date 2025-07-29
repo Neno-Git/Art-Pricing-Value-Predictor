@@ -6,7 +6,7 @@ import numpy as np
 
 # Load the trained models
 reg_pipeline_v2 = joblib.load('catboost_regressor_pipeline_v2.pkl')
-clf_pipeline_v2 = joblib.load('high_value_classifier_pipeline_v2.pkl')
+clf_pipeline_v1 = joblib.load('high_value_classifier_pipeline.pkl')
 
 # Streamlit App Header
 st.title("🎨 Art Pricing & Value Predictor")
