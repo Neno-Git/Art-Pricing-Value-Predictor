@@ -78,7 +78,7 @@ if st.button('Predict'):
     predicted_price = reg_pipeline_v2.predict(sample_data)[0]
     
     # Make the classification prediction (high/low value)
-    predicted_high_value = clf_pipeline_v2.predict(sample_data)[0]
+    predicted_high_value = clf_pipeline_v1.predict(sample_data)[0]
     value_status = '🏆 High Value Artwork' if predicted_high_value == 1 else '🖼️ Standard Value Artwork'
     
     # Display results with colored background and spacing between the boxes
