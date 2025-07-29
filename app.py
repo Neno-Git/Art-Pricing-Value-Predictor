@@ -67,12 +67,13 @@ if st.button('Predict'):
     agg_cluster_v2 = cluster_map.get(assigned_cluster, 0)
 
     sample_data = pd.DataFrame([{
-        'style': style,
-        'medium': medium,
-        'target_audience': audience,
-        'agg_cluster_v2': agg_cluster_v2,
-        'area_sq_in': area_sq_in
-    }])
+    'style': style,
+    'medium': medium,
+    'target_audience': audience,
+    'agg_cluster': agg_cluster_v2,      # for classification model (V1)
+    'agg_cluster_v2': agg_cluster_v2,   # for regression model (V2)
+    'area_sq_in': area_sq_in
+}])
 
     # Make the prediction for price (regression)
     predicted_price = reg_pipeline_v2.predict(sample_data)[0]
