@@ -13,10 +13,22 @@ st.title("🎨 Art Pricing & Value Predictor")
 style = st.selectbox("Style", ['Abstract Expressionism', 'Cubism', 'Impressionism', 'Modern', 'Realism', 'Surrealism'])
 medium = st.selectbox("Medium", ['Acrylic', 'Charcoal', 'Mixed Media', 'Oil', 'Watercolor'])
 audience = st.selectbox("Target Audience", ['Art Collectors', 'Corporate Clients', 'Families', 'Interior Designers', 'Young Professionals'])
-size = st.selectbox("Size", ['12\"x16\"', '18\"x24\"', '20\"x30\"', '24\"x36\"', '30\"x4\"'])
+size = st.selectbox("Size", ['18\"x24\"', '24\"x36\"', '12\"x16\"'])
 
 if st.button("Predict"):
     try:
+        # You define a fixed or most-likely cluster for simplicity
+        cluster_lookup = {
+            'Acrylic': 1,
+            'Charcoal': 3,
+            'Mixed Media': 9,
+            'Oil': 2,
+            'Watercolor': 7
+        }
+
+        # Use selected medium to determine likely cluster
+        cluster = cluster_lookup.get(medium, 0)
+
         # Convert user input to DataFrame
         user_input = pd.DataFrame([{
             'style': style,
