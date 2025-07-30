@@ -6,7 +6,7 @@ import numpy as np
 
 # Load the trained models
 reg_pipeline_v2 = joblib.load('catboost_regressor_pipeline_v2.pkl')
-clf_pipeline_v1 = joblib.load('high_value_classifier_pipeline.pkl')
+clf_pipeline_v2 = joblib.load('high_value_classifier_pipeline_v2.pkl')
 
 # Streamlit App Header
 st.title("🎨 Art Pricing & Value Predictor")
@@ -31,22 +31,22 @@ def assign_cluster(medium, style):
         ('Oil', 'Abstract Expressionism'): 'Top 1_Oil & Acrylic (Cubism/Abstract)',
         ('Acrylic', 'Cubism'): 'Top 1_Oil & Acrylic (Cubism/Abstract)',
         ('Acrylic', 'Abstract Expressionism'): 'Top 1_Oil & Acrylic (Cubism/Abstract)',
-
+        
         # Top 2 - Watercolor (Surrealism/Abstract)
         ('Watercolor', 'Surrealism'): 'Top 2_Watercolor (Surrealism/Abstract)',
         ('Watercolor', 'Abstract Expressionism'): 'Top 2_Watercolor (Surrealism/Abstract)',
-
+        
         # Top 5 - Mixed Media (Cubism/Realism)
         ('Mixed Media', 'Cubism'): 'Top 5_Mixed Media (Cubism/Realism)',
         ('Mixed Media', 'Realism'): 'Top 5_Mixed Media (Cubism/Realism)',
 
         # Default if no match is found
-        ('Oil', 'Realism'): 'Other Clusters',
+        ('Oil', 'Realism'): 'Other Clusters', 
         ('Acrylic', 'Modern'): 'Other Clusters',
         ('Watercolour', 'Realism'): 'Other Clusters',
         ('Charcoal', 'Surrealism'): 'Other Clusters',
     }
-
+    
     # Return the appropriate cluster based on the combination
     return cluster_map.get((medium, style), 'Other Clusters')
 
@@ -77,11 +77,11 @@ if st.button('Predict'):
 
     # Make the prediction for price (regression)
     predicted_price = reg_pipeline_v2.predict(sample_data)[0]
-
+    
     # Make the classification prediction (high/low value)
-    predicted_high_value = clf_pipeline_v1.predict(sample_data)[0]
+    predicted_high_value = clf_pipeline_v2.predict(sample_data)[0]
     value_status = '🏆 High Value Artwork' if predicted_high_value == 1 else '🖼️ Standard Value Artwork'
-
+    
     # Display results with colored background and spacing between the boxes
     st.markdown(f'<div style="background-color: #D4EDDA; padding: 15px; border-radius: 5px; font-size: 16px; color: #155724; margin-bottom: 20px;">💰 Predicted Price: ${predicted_price:.2f}</div>', unsafe_allow_html=True)
     st.markdown(f'<div style="background-color: #B8DAF4; padding: 15px; border-radius: 5px; font-size: 16px; color: #004085;">{value_status}</div>', unsafe_allow_html=True)
